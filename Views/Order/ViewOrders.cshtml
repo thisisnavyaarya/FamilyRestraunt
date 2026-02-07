@@ -1,0 +1,40 @@
+﻿@model IEnumerable<FamilyRestraunt.Models.Orders>
+@{
+        ViewBag.Title = "My Orders";
+}
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Order ID</th>
+            <th>Order Date</th>
+            <th>Total Amount</th>
+            <th>Order Items</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr></tr>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.OrderDate.ToString("MM/dd/yyyy")</td>
+                <td>@order.TotalAmount.ToString("C")</td>
+                <td>
+                    <ul>
+                        @if (order.OrderItems != null)
+                        {
+                            foreach (var item in order.OrderItems)
+                            {
+                                <li>
+                                    @(item.Product != null 
+                                        ? $"{item.Product.Name} - {item.Quantity} x {item.Price.ToString("C")}" 
+                                        : $"Unknown Product - {item.Quantity} x {item.Price.ToString("C")}")
+                                </li>
+                            }
+                        }
+                    </ul>
+                </td>
+            </tr>
+        }
+</table>
+
